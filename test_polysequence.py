@@ -26,12 +26,19 @@ import os
 import re
 
 README_CONTENT_CHECK_FOR = [
-    "generate_company_details",
-    "generate_market_prices",
-    "generate_stock_data",
-    "generate_fake_lists",
-    "calculate_vitals",
-    "retrieve_details_for_tuple"
+    "ConvexPolygon",
+    "PolygonSequences",
+    "get_vertices",
+    "get_edges",
+    "get_circumradius",
+    "get_length_of_side",
+    "get_apothem",
+    "get_area",
+    "get_perimeter",
+    "__eq__",
+    "__gt__",
+    "__getitem__",
+    "get_max_efficiency_poly"   
 ]
 
 def test_readme_exists():

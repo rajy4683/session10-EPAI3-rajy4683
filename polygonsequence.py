@@ -45,6 +45,11 @@ class PolygonSequences():
                 max_pol_offset = k
                 max_pol_ratio = curr_ratio
         return self._offset_to_polysides[max_pol_offset]
+    def __repr__(self):
+        '''
+        Repr for Polygon sequence
+        '''
+        return f"Instance of PolygonSequences class. Max Edges:{self.max_poly_edges} Radius:{self.circumradius} Len: {len(self._offset_to_polysides)}"
     def __len__(self):
         '''
         Total length of the sequence. This will be equal to the max value provided during sequence creation.

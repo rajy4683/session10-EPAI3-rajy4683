@@ -1,8 +1,24 @@
 # Sequence Types
 
-In Python Sequences refer to ordered group of items. 
+In Python Sequences refer to ordered group of items. These include Lists, Tuples and Strings. Some of the operations that sequences support include:
+
+1. Concatenation
+2. Repetitions
+3. "in" and "not in" operators
+4. Element wise indexing/Slicing.
+
+It is important to note that all Sequences are "iterable" but it is not necessary that all iterables are sequences. E.g: Unordered Sets vs Lists. Further, **range ** objects are additionally restrictive as they don't permit concatenation/reptition.
 
 ```
+Sample:
+s = (0,1,2) 
+list_s = [0,2.9, 30]
+set_s = {0,2,3} ### Sets are not subscriptable
+print(s[0], list_s[0]) ### Works fine
+try:
+    print(set_s[0]) ### Throws Type error: 'set' object is not subscriptable
+except TypeError as e:
+    print(e)
 
 ```
 
@@ -34,145 +50,128 @@ In Python Sequences refer to ordered group of items.
 5. that has these functionalities:
 
    1. a proper `__repr__ `function
-   2. implements equality (==) based on # vertices and circumradius (`__eq__`)
-   3. implements > based on number of vertices only (`__gt__`)
+   2.  equality function
+   3. greater than functionality
 
-   
-
-### Solution
-
-```
-def generate_fake_lists(count = 10000)
-    """
-    Generates fake profiles and Returns 2 lists:
-        list: List of NamedTuple
-        list: List of dicts
-    """
-```
-
-This is the base function that calls the Faker().profile. For convenience we return both a list of namedtuples and list of dicts. Sample of Faker.profile is as below:
-
-```
-{'job': 'IT technical support officer',
- 'company': 'Mckinney, Gray and Smith',
- 'ssn': '209-22-2764',
- 'residence': '75478 Smith Estates Suite 245\nPort Andrew, GA 74768',
- 'current_location': (Decimal('15.6842805'), Decimal('-103.190856')),
- 'blood_group': 'AB-',
- 'website': ['http://www.haynes-lindsey.org/',
-  'https://walker-norris.com/',
-  'https://www.jones.com/'],
- 'username': 'chelseaorozco',
- 'name': 'Bethany West',
- 'sex': 'F',
- 'address': '99714 Mclean Neck Apt. 758\nConnerbury, AK 36335',
- 'mail': 'onelson@gmail.com',
- 'birthdate': datetime.date(1977, 8, 17)}
-```
-
-```
-def calculate_vitals(profile_list: list, profile_element_type: type):
-    """
-    Inner function that performs the real calculations.
-    Inputs:
-        list: List of dicts or List of namedtuple
-        type: Type of the element
-    Output:
-        str: most common blood_group
-        float: average age of the profiles in the list
-        int: age of the oldest member in the list
-        float: average latitude
-        float: average longitude
-    """
-```
-
-The above function implements the actual logic of retrieving individual elements and getting following parameters:
-
-1. Most common blood group
-2. Average age of the samples. 
-3. Old person in the sample.
-4. Average Latitude
-5. Average longitude
-
-(Note: Faker profile provides a dateofbirth field in datetime format, so age must be calculated by taking delta with current)
-
-### Do the same thing above using a dictionary. Prove that namedtuple is faster
 
 ### Solution
 
 ```
-def calculate_vitals(profile_list: list, profile_element_type: type):
-    """
-    Inner function that performs the real calculations.
-    Inputs:
-        list: List of dicts or List of namedtuple
-        type: Type of the element
-    Output:
-        str: most common blood_group
-        float: average age of the profiles in the list
-        int: age of the oldest member in the list
-        float: average latitude
-        float: average longitude
-    """
+class ConvexPolygon():
+    ''' 
+    A regular strictly convex polygon is a polygon that has the following characteristics:
+        all interior angles are less than 180
+        all sides have equal length
+    '''
 ```
 
-Second parameter of above function describes the type of list objects passed.
+This is the primary class  whose `__init__` function takes two arguments the number of edges and the circumradius. Basic checks are enforced  i.e the datatypes must numerical and number of edges must not be less than 3. Following is the list of properties supported by the class.
 
 ```
-def retrieve_details_for_tuple(profile_list: list):
-    """
-    Wrapper function that takes a list of dicts or a list of namedtuples
-    and returns the following:
-    str: most common blood_group
-    float: average age of the profiles in the list
-    int: age of the oldest member in the list
-    float: average latitude
-    float: average longitude
-    """
+    @property
+    def get_vertices(self):
+        '''
+        Property: number of vertices of the polygon
+        '''
+    @property
+    def get_edges(self):
+        '''
+        Property: number of edges of the polygon
+        return self._n_sides    
+    @property
+    def get_circumradius(self):
+        '''
+        Property: circumradius of the polygon
+        '''
+    @property
+    def get_interior_angle(self):
+        '''
+        Property: number of interior angles of the polygon
+        '''
+    @property
+    def get_length_of_side(self):
+        '''
+        Property: length of one side of the polygon
+        '''
+    @property
+    def get_apothem(self):
+        ''''
+        Property: Length of apothem of the polygon
+        '''
+    @property
+    def get_area(self):
+        ''''
+        Property: Area of the polygon
+        '''        
+    @property
+    def get_perimeter(self):
+        '''
+        Property: Perimeter of the polygon
+        '''
 ```
 
-Single wrapper function that can invoke `calculate_vitals` based on whether elements are list or namedtuples. 
+The ConvexPolygon class also provides the comparison functions i.e `__gt__` and `__eq__`. The criteria for comparison is below:
 
-### Create fake data (you can use Faker for company names) for imaginary stock exchange for top 100 companies (name, symbol, open, high, close). Assign a random weight to all the companies. Calculate and show what value the stock market started at, what was the highest value during the day, and where did it end. Make sure your open, high, close are not totally random. You can only use namedtuple. 
-
-### Solution:
-
-```
-def generate_company_details(count = 100)
-    """
-    Returns two lists i.e name of company and stocker ticker of each company
-    """
-```
-
-First we generate two lists containing random company names and their 4-letter Ticker Symbol. Since the values tend to repeat we generate a larger set and remove duplicates.
+1. equality (==): when number of edges and the circumradius is equal numerically for both the objects
+2. '>' comparison is implemented based on number of edges/vertices only.
 
 ```
-def generate_market_prices(upper_cutoff=0.6, lower_cutoff=0.6):
-    """
-    Generates Open, high, low and close prices from a random uniform distribution (1, 10000)
-    The upper_cutoff and lower_cutoff are used as max and min bounds based on the open value.
-    Basic constraints to be met are:
-    1. Open <= High
-    2. High >= Low
-    """
+    def __eq__(self, rhs_poly):
+        '''
+        Implementation of equality function for ConvexPolygon class.
+        Returns True when both circumradius and the number of sides both match.
+        '''
+    def __gt__(self, rhs_poly):
+        '''
+        Implementation of greater than function for ConvexPolygon class.
+        Returns True when LHS has greater number of vertices/sides than RHS.
+        '''
 ```
 
-This function generates the real quotes. Basic constraints such as upper/lower cutoff for high/low values and sanity of Open, High, Low and close values are managed.
+### Implement a Custom Polygon sequence type
+
+1. Implement a Custom Polygon sequence type:
+   1. where initializer takes in:
+      1. number of vertices for largest polygon in the sequence
+      2. common circumradius for all polygons
+   2. that can provide these properties:
+      1. max efficiency polygon: returns the Polygon with the highest **area to perimeter** ratio
+   3. that has these functionalities:
+      1. functions as a sequence type (`__getitem__`)
+      2. supports the len() function (`__len__`)
+      3. has a proper representation (`__repr__`)
+
+### Solution
 
 ```
-def generate_stock_data(company_name_list, unique_ticker, weights=None)
-    """
-    Creates a pseudo-stock market status based on the company, list, ticker and weights
-    Returns:
-        list: generated pseudo stock market data
-        float: Open value based on weighted average of the indices
-        float: High value based on weighted average of the indices
-        float: Low value based on weighted average of the indices
-        float: Close value based on weighted average of the indices   
-    """
+class PolygonSequences():
+    '''
+    Polygon sequence class that generates all polygons for a given circumradius and upto the max edges specified by n_sides.
+    E.g: If input radius = 4 and n_sides = 10, polygons starting from sides = 3,4,...10 of size 4 will be generated
+    Returns sequence of ConvexPolygon class.
+    '''
 ```
 
-Main wrapper function to generate the movement of stock index based on the weights and prices calculated.
+This is the primary class  whose `__init__` function takes two arguments the number of edges and the circumradius. Here number of edges will be used to generate a sequence of all the ConvexPolygon objects between 3 and number of max edges. Each object will have ofcourse use the same circumradius. To support indexing and slicing, `__getitem__` method is explicitly implemented. 
+
+```
+    def __getitem__(self, s):
+        '''
+        Allows for proper iteration of the sequence.
+        '''
+     
+```
+
+Another important function that is implemented is the `get_max_efficiency_poly`. This function returns the polygon with the maximum ratio of area to perimeter amongst all the polygons in the sequence.
+
+```
+    def get_max_efficiency_poly(self):
+        '''
+        Returns the max efficient polygon. We can make a simple hack to use the one with largest number of edges.
+        '''
+```
+
+
 
 ## User Details:
 Submitted by: Rajesh Y(github: rajy4683)
